@@ -36,6 +36,10 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleSearchbarEndEditing),
+                                               name: .SearchbarEndEditing,
+                                               object: nil)
         title = "Detail Screen"
         accessoryView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
@@ -47,5 +51,10 @@ class DetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         becomeFirstResponder()
+    }
+    
+    @objc private func handleSearchbarEndEditing(_ sender: NSNotification) {
+        becomeFirstResponder()
+        view.becomeFirstResponder()
     }
 }

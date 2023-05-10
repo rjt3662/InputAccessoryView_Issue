@@ -14,6 +14,7 @@ class RootViewController: UITableViewController, UITextFieldDelegate {
     fileprivate lazy var searchVC: UISearchController = {
         let controller = UISearchController()
         controller.searchBar.placeholder = "New Search Text..."
+        controller.searchBar.delegate = self
         return controller
     }()
     
@@ -29,3 +30,14 @@ class RootViewController: UITableViewController, UITextFieldDelegate {
 
 }
 
+extension RootViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        NotificationCenter.default.post(name: .SearchbarEndEditing, object: nil)
+    }
+    
+}
+
+extension NSNotification.Name {
+    static let SearchbarEndEditing = NSNotification.Name("SEARCHBAR_END_EDITING")
+}
